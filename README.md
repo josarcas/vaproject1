@@ -1,11 +1,12 @@
 # INSTRUCCIONES DE EJECUCIÓN RÁPIDA
 
 Para ejecutar todo el proyecto de manera automática, simplemente haz doble click en el archivo:
-`run_pipeline.bat`
+`run_pipeline.bat` (Windows)
 
-O ejecuta en la terminal:
+O si estás en **Linux/Mac**, ejecuta en la terminal:
 ```bash
-.\run_pipeline.bat
+chmod +x run_pipeline.sh
+./run_pipeline.sh
 ```
 
 Esto instalará las librerías, descargará las imágenes y entrenará el modelo usando la configuración de `config.py`.

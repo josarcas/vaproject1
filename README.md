@@ -1,15 +1,27 @@
-# INSTRUCCIONES DE EJECUCIÓN RÁPIDA
+# INSTRUCTIONS OF QUICK EXECUTION
 
-Para ejecutar todo el proyecto de manera automática, simplemente haz doble click en el archivo:
+To execute the entire project automatically, simply double-click the file:
 `run_pipeline.bat` (Windows)
 
-O si estás en **Linux/Mac**, ejecuta en la terminal:
+Or if you are on **Linux/Mac**, run in the terminal:
 ```bash
 chmod +x run_pipeline.sh
 ./run_pipeline.sh
 ```
 
-Esto instalará las librerías, descargará las imágenes y entrenará el modelo usando la configuración de `config.py`.
+This will install the libraries, download the images, and train the model using the configuration of `config.py`.
+
+## HOW TO TEST YOUR OWN IMAGES
+Once the training is complete, you can test the model with any photo (your own or from the internet):
+
+**In Windows:**
+- Drag your image on top of the `test_my_image.bat` file.
+- Or run: `test_my_image.bat path/to/your/photo.jpg`
+
+**In Linux/Mac:**
+- Run: `./test_my_image.sh path/to/your/photo.jpg`
+
+The result (image with prediction) will be saved in the `predictions` folder.
 
 ---
 # CLASIFICADOR DE EMOCIONES

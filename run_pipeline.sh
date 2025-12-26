@@ -2,25 +2,25 @@
 set -e
 
 echo "=================================================="
-echo "     EJECUTANDO PIPELINE COMPLETO (LINUX)"
+echo "     EXEC PIPELINE"
 echo "=================================================="
 
 echo ""
-echo "[1/3] Instalando dependencias..."
+echo "[1/3] InstaLL requiriments..."
 pip install -r requirements.txt
 
 echo ""
-echo "[2/3] Descargando Dataset (si no existe)..."
+echo "[2/3] Download dataset..."
 python download_dataset.py
 
 echo ""
-echo "[3/3] Iniciando Entrenamiento (usando config.py)..."
-echo "      Los resultados se guardaran en la carpeta 'outputs'"
+echo "[3/3] Training..."
+echo "      Save in 'outputs'"
 python train.py --train-dir "datos_zip/dataset_emociones/train" --val-dir "datos_zip/dataset_emociones/validation" --output-dir outputs
 
 echo ""
 echo "=================================================="
-echo "     PROCESO COMPLETADO"
+echo "     PIPELINE COMPLETED"
 echo "=================================================="
-echo "Revisa 'outputs/training_summary_scratch.txt' para el reporte."
+echo "Check 'outputs/training_summary_scratch.txt' for the report."
 echo ""

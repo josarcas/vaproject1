@@ -1,3 +1,4 @@
+#IMPORTS----------------------------------------------------------------------------------------------------------------
 import argparse
 from pathlib import Path
 
@@ -5,7 +6,7 @@ import torch
 
 from emotion_classifier.inference import predict_images
 
-
+#FUNCTIONS----------------------------------------------------------------------------------------------------------------
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--checkpoint", type=str, required=True)

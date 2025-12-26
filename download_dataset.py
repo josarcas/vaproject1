@@ -1,10 +1,11 @@
+#IMPORTS----------------------------------------------------------------------------------------------------------------
 import argparse
 import os
 import zipfile
 
 import gdown
 
-
+#FUNCTIONS----------------------------------------------------------------------------------------------------------------
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(

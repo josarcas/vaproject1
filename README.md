@@ -11,6 +11,21 @@ chmod +x run_pipeline.sh
 
 This will install the libraries, download the images, and train the model using the configuration of `config.py`.
 
+
+## COMPARATIVA DE MODELOS
+Para cumplir con el requerimiento de comparar 2 modelos pre-entrenados (ResNet18 vs MobileNetV3), ejecuta el script de comparativa:
+
+**Linux/Mac:**
+```bash
+chmod +x run_comparison.sh
+./run_comparison.sh
+```
+
+**Windows:**
+Ejecuta `run_comparison.bat`
+
+Esto entrenará ambos modelos secuencialmente y guardará sus resultados en carpetas separadas (`outputs_resnet` y `outputs_mobilenet`) para que puedas analizarlos.
+
 ## HOW TO TEST YOUR OWN IMAGES
 Once the training is complete, you can test the model with any photo (your own or from the internet):
 

@@ -1,3 +1,5 @@
+
+#IMPORTS----------------------------------------------------------------------------------------------------------------
 from pathlib import Path
 from typing import Dict, List
 
@@ -6,7 +8,7 @@ import numpy as np
 import seaborn as sns
 from sklearn.metrics import classification_report, confusion_matrix
 
-
+#FUNCTIONS----------------------------------------------------------------------------------------------------------------
 def save_training_curves(history: Dict[str, List[float]], path: Path) -> None:
     epochs = list(range(1, len(history["train_loss"]) + 1))
     

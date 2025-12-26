@@ -1,3 +1,4 @@
+#IMPORTS----------------------------------------------------------------------------------------------------------------
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence
@@ -18,7 +19,7 @@ class PredictionResult:
     predicted_label: str
     probabilities: Dict[str, float]
 
-
+#FUNCTIONS----------------------------------------------------------------------------------------------------------------
 def _haar_crop_rgb(image_bgr: np.ndarray) -> Optional[np.ndarray]:
     gray = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2GRAY)
     face_cascade = cv2.CascadeClassifier(

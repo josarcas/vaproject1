@@ -1,3 +1,4 @@
+#IMPORTS----------------------------------------------------------------------------------------------------------------
 from dataclasses import dataclass
 from typing import List, Optional
 
@@ -65,7 +66,7 @@ def _forward_collect(
         y_pred=y_pred,
     )
 
-
+#FUNCTIONS----------------------------------------------------------------------------------------------------------------
 def train_epoch(
     *,
     model: nn.Module,

@@ -1,3 +1,4 @@
+#IMPORTS----------------------------------------------------------------------------------------------------------------
 import torch
 from torch import nn
 from torch.utils.data import DataLoader
@@ -7,17 +8,15 @@ from typing import Dict, List, Any
 from pathlib import Path
 from collections import Counter
 
+#FUNCTIONS----------------------------------------------------------------------------------------------------------------
 def count_parameters(model: nn.Module) -> int:
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
 
 def analyze_confusion(y_true: List[int], y_pred: List[int], class_names: List[str]) -> str:
     cm = confusion_matrix(y_true, y_pred)
-    # Zero out diagonal to ignore correct predictions
     np.fill_diagonal(cm, 0)
-    
-    # Flatten and sort to find max complications
     cm_flat = cm.flatten()
-    indices = np.argsort(cm_flat)[::-1] # Descending
+    indices = np.argsort(cm_flat)[::-1] 
     
     report = []
     total_errors = np.sum(cm)
@@ -54,8 +53,7 @@ def generate_report(
     lines.append("       EMOTION CLASSIFIER - TRAINING REPORT")
     lines.append("=" * 60)
     lines.append("")
-    
-    # 1. Dataset Info
+
     lines.append("1. DATASET INFORMATION")
     lines.append("-" * 40)
     lines.append(f"Classes ({len(class_names)}): {', '.join(class_names)}")
@@ -64,7 +62,6 @@ def generate_report(
     lines.append(f"Batch Size:        {train_loader.batch_size}")
     lines.append("")
 
-    # 2. Network Architecture
     lines.append("2. NETWORK ARCHITECTURE & EFFICIENCY")
     lines.append("-" * 40)
     lines.append(f"Total Trainable Parameters: {count_parameters(model):,}")
@@ -73,7 +70,6 @@ def generate_report(
     lines.append(str(model))
     lines.append("")
 
-    # 3. Training History
     lines.append("3. TRAINING HISTORY")
     lines.append("-" * 40)
     header = f"{'Epoch':^6} | {'Train Loss':^10} | {'Val Loss':^10} | {'Train Acc':^10} | {'Val Acc':^10} | {'Top-2 Acc':^10}"
@@ -81,8 +77,7 @@ def generate_report(
     lines.append("-" * len(header))
     
     epochs = len(history["train_loss"])
-    # Handle cases where top2 might not be in older history dicts if user retrains without clearing
-    # But since we just added it, we assume it's there or handle gracefully
+
     top2_hist = history.get("val_top2", [0.0]*epochs)
     
     for i in range(epochs):
@@ -96,7 +91,7 @@ def generate_report(
         )
     lines.append("")
 
-    # 4. Final Results
+
     lines.append("4. FINAL METRICS (Best Model Evaluation)")
     lines.append("-" * 40)
     lines.append(f"Accuracy:       {final_metrics.accuracy:.4f}")
@@ -104,13 +99,12 @@ def generate_report(
     lines.append(f"F1 Score (Mac): {final_metrics.f1_macro:.4f}")
     lines.append(f"Loss:           {final_metrics.loss:.4f}")
     lines.append("")
-    
-    # 5. Confusion Analysis
+
     lines.append("5. CONFUSION ANALYSIS (Top 3 Errors)")
     lines.append("-" * 40)
     lines.append(analyze_confusion(final_metrics.y_true, final_metrics.y_pred, class_names))
     lines.append("")
     
-    # Write to file
+
     output_path.write_text("\n".join(lines), encoding="utf-8")
     print(f"Detailed report saved to: {output_path}")

@@ -1,3 +1,5 @@
+
+#IMPORTS----------------------------------------------------------------------------------------------------------------
 from typing import Optional
 
 import torch
@@ -42,7 +44,7 @@ class SimpleCNN(nn.Module):
         x = self.classifier(x)
         return x
 
-
+#FUNCTIONS----------------------------------------------------------------------------------------------------------------
 def _set_parameter_requires_grad(model: nn.Module, feature_extract: bool) -> None:
     if not feature_extract:
         return
@@ -105,7 +107,6 @@ def build_model(
             num_classes=num_classes, in_channels=in_ch, activation_fn=act_cls
         )
 
-    # Note: Pre-trained models have their own fixed activation functions.
     return build_pretrained(
         name=name,
         num_classes=num_classes,

@@ -1,9 +1,10 @@
+#IMPORTS----------------------------------------------------------------------------------------------------------------
 from typing import List, Tuple
 
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 
-
+#FUNCTIONS----------------------------------------------------------------------------------------------------------------
 def build_transforms(*, image_size: int, train: bool, grayscale: bool):
     ops = []
 

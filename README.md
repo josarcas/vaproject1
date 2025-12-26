@@ -1,4 +1,17 @@
-CLASIFICADOR DE EMOCIONES
+# INSTRUCCIONES DE EJECUCIÓN RÁPIDA
+
+Para ejecutar todo el proyecto de manera automática, simplemente haz doble click en el archivo:
+`run_pipeline.bat`
+
+O ejecuta en la terminal:
+```bash
+.\run_pipeline.bat
+```
+
+Esto instalará las librerías, descargará las imágenes y entrenará el modelo usando la configuración de `config.py`.
+
+---
+# CLASIFICADOR DE EMOCIONES
 El objetivo de este trabajo es construir y comparar distintas arquitecturas de redes neuronales convolucionales (CNNs) utilizando Pytorch, capaces de clasificar emociones humanas a partir de imágenes faciales. El clasificador deberá identificar una de las 7 emociones básicas: alegría, tristeza, enojo, miedo, sorpresa, disgusto y seriedad. El dataset se encuentra en este link: https://drive.google.com/file/d/1aPHE00zkDhEV1waJKhaOJMdN6-lUc0iT/view?usp=sharing
 
 Les recomiendo usar el siguiente código para poder obtener las imágenes fácilmente desde ese link. Pero son libres de descargar las imágenes como mejor les parezca.

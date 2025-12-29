@@ -18,7 +18,7 @@ Durante la ejecución del pipeline completo, se entrenaron tres modelos durante 
 
 ### 2. Análisis Comparativo
 
-*   **Rendimiento General**: Ambos modelos pre-entrenados superan ampliamnete al modelo customizado en promedio más del 26% de precisión. Esto demuestra la ventaja del Transfer Learning.
+*   **Rendimiento General**: Ambos modelos pre-entrenados superan ampliamnete al modelo customizado en precisión. Esto demuestra la ventaja del Transfer Learning.
 *   **ResNet vs MobileNet**:
     *   Ambos alcanzaron una presición muy similar de entorno al 85.76%, sin embargo, MobileNetV3 tardo menos tiempo en entrenar y logró el mismo resultado, lamentablemente no tomé el tiempo exacto que tardo cada modelo ententrenamiento por lo que no puedo aportar datos exactos del tiempo de entrenamiento de cada red, solo puedo confirmar que en mi percepcción el modelo más rapido de entrenar fue MobileNetV3.
 
@@ -28,7 +28,7 @@ Se probaron 3 imágenes (`angry`, `happy`, `surprised`) fuera del dataset obteni
 *   ResNet mostró una ligera tendencia a ser más preciso puesto que los resultados en las predicciones de las imagenes muestran que el modelo detecto la emoción con un valor muy cercano a 1 mientras que el resto de las emociones las mantiene en valores entorno a 0, mientras que MobileNet deja un poco más abierta la ventana de predicciones, de modo que cuando el modelo detecta la emoción acierta en su predicción pero deja un mayor margen de error tanto de la emoción corrrecta como el resto de las emociones, se podría decir que aunque acertó en todos los casos tiene un poco más de dudas, mientras que ResNet está 100% seguro de su respuesta.
 
 
-### 4. Evidencia Visual Completa
+### 4. Evidencia
 
 #### A. Modelo 1: CNN custom
 
@@ -41,10 +41,6 @@ Se probaron 3 imágenes (`angry`, `happy`, `surprised`) fuera del dataset obteni
 | :---: | :---: | :---: |
 | ![Angry](predictions/scratch/angry_pred.png) | ![Happy](predictions/scratch/happy_pred.png) | ![Surprised](predictions/scratch/surprised_pred.png) |
 
-<details>
-<summary><b>Ver Reporte de Clasificación Detallado (CNN)</b></summary>
-
-```text
               precision    recall  f1-score   support
 
      alegria     0.7319    0.7764    0.7535      1185
@@ -58,8 +54,7 @@ Se probaron 3 imágenes (`angry`, `happy`, `surprised`) fuera del dataset obteni
     accuracy                         0.5981      3068
    macro avg     0.6310    0.3930    0.4146      3068
 weighted avg     0.6398    0.5981    0.5663      3068
-```
-</details>
+
 
 ---
 
@@ -74,10 +69,7 @@ weighted avg     0.6398    0.5981    0.5663      3068
 | :---: | :---: | :---: |
 | ![Angry](predictions/resnet/angry_pred.png) | ![Happy](predictions/resnet/happy_pred.png) | ![Surprised](predictions/resnet/surprised_pred.png) |
 
-<details>
-<summary><b>Ver Reporte de Clasificación Detallado (ResNet18)</b></summary>
 
-```text
               precision    recall  f1-score   support
 
      alegria     0.9389    0.9333    0.9361      1185
@@ -91,8 +83,6 @@ weighted avg     0.6398    0.5981    0.5663      3068
     accuracy                         0.8576      3068
    macro avg     0.7854    0.7629    0.7731      3068
 weighted avg     0.8557    0.8576    0.8562      3068
-```
-</details>
 
 ---
 
@@ -107,10 +97,7 @@ weighted avg     0.8557    0.8576    0.8562      3068
 | :---: | :---: | :---: |
 | ![Angry](predictions/mobilenet/angry_pred.png) | ![Happy](predictions/mobilenet/happy_pred.png) | ![Surprised](predictions/mobilenet/surprised_pred.png) |
 
-<details>
-<summary><b>Ver Reporte de Clasificación Detallado (MobileNetV3)</b></summary>
 
-```text
               precision    recall  f1-score   support
 
      alegria     0.9545    0.9215    0.9377      1185
@@ -124,14 +111,12 @@ weighted avg     0.8557    0.8576    0.8562      3068
     accuracy                         0.8576      3068
    macro avg     0.7912    0.7841    0.7869      3068
 weighted avg     0.8603    0.8576    0.8584      3068
-```
-</details>
 
 ---
 
 ### 5. Conclusiones finales
 
-El modelo customizado de red neuronal al menos con 25 epocas de entrenamiento no logra una buena presición en la detección de emociones, tal vez con más entrenamiento o con una red más grande logré mejorar lo suficiente para poder ser usada en entornos reales, fue la de peor rendimiento no logrando una precisión del 50% pero tanmbién fue la más rapida de entrenar y la que menos recursos requiere, las dos redes preentrenadas lograron una presición similar con resultados correctos en los datos de prueba pero tambien consumen mucho más recursos y requirieron de un mayor tiempo de entrenamiento, en lo personal me iría por MobileNetV3 pues es más rapido en comparación con ResNet18.
+El modelo customizado de red neuronal al menos con 25 epocas de entrenamiento no logra una buena presición en la detección de emociones cuando estas no son exageradas, me parce curioso que incluso en la prueba de alegria, que detecta correctamente, la segunda emoción más probable es la contraria, enojo, aunque con mucho menor posibilidad, tal vez con más entrenamiento o con una red más grande logré mejorar lo suficiente para poder ser usada en entornos reales, fue la de peor rendimiento no logrando una precisión del 50% pero tanmbién fue la más rapida de entrenar y la que menos recursos requiere, las dos redes preentrenadas lograron una presición similar con resultados correctos en los datos de prueba pero tambien consumen mucho más recursos y requirieron de un mayor tiempo de entrenamiento, en lo personal me iría por MobileNetV3 pues es más rapido en comparación con ResNet18.
 
 
 To execute the entire project automatically, simply double-click the file:

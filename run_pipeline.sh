@@ -19,7 +19,7 @@ echo "      Save in 'outputs'"
 python train.py --train-dir "datos_zip/dataset_emociones/train" --val-dir "datos_zip/dataset_emociones/validation" --output-dir outputs
 
 
-# 4. Comparativa de Modelos
+
 echo ""
 echo "[4/3] Starting Model Comparison (ResNet18 vs MobileNetV3)..."
 

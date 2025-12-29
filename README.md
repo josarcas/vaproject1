@@ -1,4 +1,56 @@
-# INSTRUCTIONS OF QUICK EXECUTION
+
+# RESULTADOS Y ANÁLISIS DE LA COMPARATIVA
+
+Durante la ejecución del pipeline completo, se entrenaron tres modelos durante 25 épocas cada uno:
+1.  **CNN**: Modelo base creado desde cero.
+2.  **ResNet18**: Modelo pre-entrenado robusto.
+3.  **MobileNetV3 Small**: Modelo pre-entrenado optimizado para eficiencia.
+
+### 1. Métricas de Rendimiento (Validación)
+
+| Metric | CNN | ResNet18 | MobileNet V3 |
+| :--- | :---: | :---: | :---: |
+| **Accuracy** | 59.81% | **85.76%** | **85.76%** |
+| **Top-2 Acc** | 79.47% | 94.13% | **94.23%** |
+| **F1 Score** | 0.4146 | 0.7731 | **0.7869%** |
+| **Loss** | 1.1259 | 0.6106 | 0.7057 |
+| **Parámetros** | **0.39 M** | 11.18 M | 1.52 M |
+
+### 2. Análisis Comparativo
+
+*   **Rendimiento General**: Ambos modelos pre-entrenados superan masivamente al modelo Scratch (+26% en precisión). Esto demuestra la ventaja crítica del *Transfer Learning* cuando se tiene un dataset de tamaño medio (12k imágenes).
+*   **ResNet vs MobileNet**:
+    *   Ambos alcanzaron **idéntica precisión global (85.76%)**.
+    *   **MobileNetV3 es el ganador claro** por eficiencia: logró el mismo resultado con solo **1.5 Millones de parámetros**, frente a los 11.1 Millones de ResNet18. Es casi 10 veces más ligero.
+    *   MobileNet también obtuvo un F1 Score ligeramente superior, indicando un mejor balance entre precisión y recall para las clases difíciles.
+
+### 3. Pruebas con Imágenes Nuevas (Haar Cascade)
+Se probaron 3 imágenes (`angry`, `happy`, `surprised`) fuera del dataset:
+*   **Resultados Sólidos**: Tanto ResNet como MobileNet predijeron correctamente el 100% de las emociones probadas con confianzas superiores al 93%.
+*   **Robustez**: ResNet mostró una ligera tendencia a ser más "seguro" (probabilidades >99%), mientras que MobileNet fue más conservador en casos ambiguos, lo cual es deseable para evitar falsos positivos extremos.
+
+
+**Conclusión Final**: Para un despliegue en producción o dispositivos con recursos limitados (celulares/web), **MobileNetV3 Small** es la arquitectura recomendada.
+
+### 4. Evidencia Visual
+
+#### A. Curvas de Entrenamiento (MobileNet - Mejor Modelo)
+![Curvas de Entrenamiento](outputs_mobilenet/curves_mobilenet_v3_small.png)
+
+#### B. Matrices de Confusión (MobileNet)
+| Matriz Absoluta | Matriz Normalizada |
+| :---: | :---: |
+| ![Matriz Absoluta](outputs_mobilenet/confusion_abs_mobilenet_v3_small.png) | ![Matriz Normalizada](outputs_mobilenet/confusion_norm_mobilenet_v3_small.png) |
+
+#### C. Predicciones con Haar Cascade
+Ejemplos de predicciones exitosas usando el modelo MobileNet:
+
+| Enojo (Angry) | Alegría (Happy) | Sorpresa (Surprised) |
+| :---: | :---: | :---: |
+| ![Angry](predictions/mobilenet/angry_pred.png) | ![Happy](predictions/mobilenet/happy_pred.png) | ![Surprised](predictions/mobilenet/surprised_pred.png) |
+
+---
+
 
 To execute the entire project automatically, simply double-click the file:
 `run_pipeline.bat` (Windows)

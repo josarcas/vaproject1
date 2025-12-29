@@ -2,9 +2,9 @@
 # RESULTADOS Y ANÁLISIS DE LA COMPARATIVA
 
 Durante la ejecución del pipeline completo, se entrenaron tres modelos durante 25 épocas cada uno:
-1.  **CNN**: Modelo base creado desde cero.
-2.  **ResNet18**: Modelo pre-entrenado robusto.
-3.  **MobileNetV3 Small**: Modelo pre-entrenado optimizado para eficiencia.
+1.  **CNN (Modelo customizado)**.
+2.  **ResNet18**.
+3.  **MobileNetV3 Small**.
 
 ### 1. Métricas de Rendimiento (Validación)
 
@@ -18,25 +18,19 @@ Durante la ejecución del pipeline completo, se entrenaron tres modelos durante 
 
 ### 2. Análisis Comparativo
 
-*   **Rendimiento General**: Ambos modelos pre-entrenados superan masivamente al modelo Scratch (+26% en precisión). Esto demuestra la ventaja crítica del *Transfer Learning* cuando se tiene un dataset de tamaño medio (12k imágenes).
+*   **Rendimiento General**: Ambos modelos pre-entrenados superan ampliamnete al modelo customizado en promedio más del 26% de precisión. Esto demuestra la ventaja del Transfer Learning.
 *   **ResNet vs MobileNet**:
-    *   Ambos alcanzaron **idéntica precisión global (85.76%)**.
-    *   **MobileNetV3 es el ganador claro** por eficiencia: logró el mismo resultado con solo **1.5 Millones de parámetros**, frente a los 11.1 Millones de ResNet18. Es casi 10 veces más ligero.
-    *   MobileNet también obtuvo un F1 Score ligeramente superior, indicando un mejor balance entre precisión y recall para las clases difíciles.
+    *   Ambos alcanzaron una presición muy similar de entorno al 85.76%, sin embargo, MobileNetV3 tardo menos tiempo en entrenar y logró el mismo resultado, lamentablemente no tomé el tiempo exacto que tardo cada modelo ententrenamiento por lo que no puedo aportar datos exactos del tiempo de entrenamiento de cada red, solo puedo confirmar que en mi percepcción el modelo más rapido de entrenar fue MobileNetV3.
 
 ### 3. Pruebas con Imágenes Nuevas (Haar Cascade)
-Se probaron 3 imágenes (`angry`, `happy`, `surprised`) fuera del dataset:
-*   **Resultados Sólidos**: Tanto ResNet como MobileNet predijeron correctamente el 100% de las emociones probadas con confianzas superiores al 93%.
-*   **Robustez**: ResNet mostró una ligera tendencia a ser más "seguro" (probabilidades >99%), mientras que MobileNet fue más conservador en casos ambiguos, lo cual es deseable para evitar falsos positivos extremos.
-
-
-**Conclusión Final**: Para un despliegue en producción o dispositivos con recursos limitados (celulares/web), **MobileNetV3 Small** es la arquitectura recomendada.
+Se probaron 3 imágenes (`angry`, `happy`, `surprised`) fuera del dataset obtenidas gracias a nano banana, al comprobar este dataset se obtuvieron los siguientes resultados:
+*   Tanto ResNet como MobileNet predijeron correctamente el 100% de las emociones de prueba. .
+*   ResNet mostró una ligera tendencia a ser más preciso puesto que los resultados en las predicciones de las imagenes muestran que el modelo detecto la emoción con un valor muy cercano a 1 mientras que el resto de las emociones las mantiene en valores entorno a 0, mientras que MobileNet deja un poco más abierta la ventana de predicciones, de modo que cuando el modelo detecta la emoción acierta en su predicción pero deja un mayor margen de error tanto de la emoción corrrecta como el resto de las emociones, se podría decir que aunque acertó en todos los casos tiene un poco más de dudas, mientras que ResNet está 100% seguro de su respuesta.
 
 
 ### 4. Evidencia Visual Completa
 
-#### A. Modelo 1: CNN (Desde Cero)
-*Desempeño base, sin pre-entrenamiento.*
+#### A. Modelo 1: CNN custom
 
 | Curvas de Entrenamiento | Matrices de Confusión |
 | :---: | :---: |
@@ -47,10 +41,29 @@ Se probaron 3 imágenes (`angry`, `happy`, `surprised`) fuera del dataset:
 | :---: | :---: | :---: |
 | ![Angry](predictions/scratch/angry_pred.png) | ![Happy](predictions/scratch/happy_pred.png) | ![Surprised](predictions/scratch/surprised_pred.png) |
 
+<details>
+<summary><b>Ver Reporte de Clasificación Detallado (CNN)</b></summary>
+
+```text
+              precision    recall  f1-score   support
+
+     alegria     0.7319    0.7764    0.7535      1185
+    disgusto     0.4000    0.0125    0.0242       160
+       enojo     0.5079    0.1975    0.2844       162
+       miedo     0.8667    0.1757    0.2921        74
+    seriedad     0.4357    0.8618    0.5788       680
+    sorpresa     0.7796    0.4407    0.5631       329
+    tristeza     0.6954    0.2866    0.4059       478
+
+    accuracy                         0.5981      3068
+   macro avg     0.6310    0.3930    0.4146      3068
+weighted avg     0.6398    0.5981    0.5663      3068
+```
+</details>
+
 ---
 
-#### B. Modelo 2: ResNet18 (Pre-entrenado)
-*Modelo robusto y estándar en la industria.*
+#### B. Modelo 2: ResNet18
 
 | Curvas de Entrenamiento | Matrices de Confusión |
 | :---: | :---: |
@@ -61,10 +74,29 @@ Se probaron 3 imágenes (`angry`, `happy`, `surprised`) fuera del dataset:
 | :---: | :---: | :---: |
 | ![Angry](predictions/resnet/angry_pred.png) | ![Happy](predictions/resnet/happy_pred.png) | ![Surprised](predictions/resnet/surprised_pred.png) |
 
+<details>
+<summary><b>Ver Reporte de Clasificación Detallado (ResNet18)</b></summary>
+
+```text
+              precision    recall  f1-score   support
+
+     alegria     0.9389    0.9333    0.9361      1185
+    disgusto     0.6115    0.5312    0.5686       160
+       enojo     0.7867    0.7284    0.7564       162
+       miedo     0.6462    0.5676    0.6043        74
+    seriedad     0.8177    0.8706    0.8433       680
+    sorpresa     0.8559    0.8663    0.8610       329
+    tristeza     0.8413    0.8431    0.8422       478
+
+    accuracy                         0.8576      3068
+   macro avg     0.7854    0.7629    0.7731      3068
+weighted avg     0.8557    0.8576    0.8562      3068
+```
+</details>
+
 ---
 
-#### C. Modelo 3: MobileNetV3 (Pre-entrenado - Ganador)
-*Modelo eficiente, ligero y de alto rendimiento.*
+#### C. Modelo 3: MobileNetV3
 
 | Curvas de Entrenamiento | Matrices de Confusión |
 | :---: | :---: |
@@ -75,8 +107,31 @@ Se probaron 3 imágenes (`angry`, `happy`, `surprised`) fuera del dataset:
 | :---: | :---: | :---: |
 | ![Angry](predictions/mobilenet/angry_pred.png) | ![Happy](predictions/mobilenet/happy_pred.png) | ![Surprised](predictions/mobilenet/surprised_pred.png) |
 
+<details>
+<summary><b>Ver Reporte de Clasificación Detallado (MobileNetV3)</b></summary>
+
+```text
+              precision    recall  f1-score   support
+
+     alegria     0.9545    0.9215    0.9377      1185
+    disgusto     0.5814    0.6250    0.6024       160
+       enojo     0.7826    0.7778    0.7802       162
+       miedo     0.7077    0.6216    0.6619        74
+    seriedad     0.8093    0.8735    0.8402       680
+    sorpresa     0.8598    0.8389    0.8492       329
+    tristeza     0.8429    0.8305    0.8367       478
+
+    accuracy                         0.8576      3068
+   macro avg     0.7912    0.7841    0.7869      3068
+weighted avg     0.8603    0.8576    0.8584      3068
+```
+</details>
+
 ---
 
+### 5. Conclusiones finales
+
+El modelo customizado de red neuronal al menos con 25 epocas de entrenamiento no logra una buena presición en la detección de emociones, tal vez con más entrenamiento o con una red más grande logré mejorar lo suficiente para poder ser usada en entornos reales, fue la de peor rendimiento no logrando una precisión del 50% pero tanmbién fue la más rapida de entrenar y la que menos recursos requiere, las dos redes preentrenadas lograron una presición similar con resultados correctos en los datos de prueba pero tambien consumen mucho más recursos y requirieron de un mayor tiempo de entrenamiento, en lo personal me iría por MobileNetV3 pues es más rapido en comparación con ResNet18.
 
 
 To execute the entire project automatically, simply double-click the file:
@@ -104,18 +159,6 @@ chmod +x run_comparison.sh
 Ejecuta `run_comparison.bat`
 
 Esto entrenará ambos modelos secuencialmente y guardará sus resultados en carpetas separadas (`outputs_resnet` y `outputs_mobilenet`) para que puedas analizarlos.
-
-## HOW TO TEST YOUR OWN IMAGES
-Once the training is complete, you can test the model with any photo (your own or from the internet):
-
-**In Windows:**
-- Drag your image on top of the `test_my_image.bat` file.
-- Or run: `test_my_image.bat path/to/your/photo.jpg`
-
-**In Linux/Mac:**
-- Run: `./test_my_image.sh path/to/your/photo.jpg`
-
-The result (image with prediction) will be saved in the `predictions` folder.
 
 ---
 # CLASIFICADOR DE EMOCIONES

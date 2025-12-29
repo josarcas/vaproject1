@@ -32,24 +32,51 @@ Se probaron 3 imágenes (`angry`, `happy`, `surprised`) fuera del dataset:
 
 **Conclusión Final**: Para un despliegue en producción o dispositivos con recursos limitados (celulares/web), **MobileNetV3 Small** es la arquitectura recomendada.
 
-### 4. Evidencia Visual
 
-#### A. Curvas de Entrenamiento (MobileNet - Mejor Modelo)
-![Curvas de Entrenamiento](outputs_mobilenet/curves_mobilenet_v3_small.png)
+### 4. Evidencia Visual Completa
 
-#### B. Matrices de Confusión (MobileNet)
-| Matriz Absoluta | Matriz Normalizada |
+#### A. Modelo 1: CNN (Desde Cero)
+*Desempeño base, sin pre-entrenamiento.*
+
+| Curvas de Entrenamiento | Matrices de Confusión |
 | :---: | :---: |
-| ![Matriz Absoluta](outputs_mobilenet/confusion_abs_mobilenet_v3_small.png) | ![Matriz Normalizada](outputs_mobilenet/confusion_norm_mobilenet_v3_small.png) |
+| ![Curvas CNN](outputs/curves_scratch.png) | ![Matriz CNN](outputs/confusion_norm_scratch.png) |
 
-#### C. Predicciones con Haar Cascade
-Ejemplos de predicciones exitosas usando el modelo MobileNet:
+**Predicciones (CNN):**
+| Angry | Happy | Surprised |
+| :---: | :---: | :---: |
+| ![Angry](predictions/scratch/angry_pred.png) | ![Happy](predictions/scratch/happy_pred.png) | ![Surprised](predictions/scratch/surprised_pred.png) |
 
-| Enojo (Angry) | Alegría (Happy) | Sorpresa (Surprised) |
+---
+
+#### B. Modelo 2: ResNet18 (Pre-entrenado)
+*Modelo robusto y estándar en la industria.*
+
+| Curvas de Entrenamiento | Matrices de Confusión |
+| :---: | :---: |
+| ![Curvas ResNet](outputs_resnet/curves_resnet18.png) | ![Matriz ResNet](outputs_resnet/confusion_norm_resnet18.png) |
+
+**Predicciones (ResNet18):**
+| Angry | Happy | Surprised |
+| :---: | :---: | :---: |
+| ![Angry](predictions/resnet/angry_pred.png) | ![Happy](predictions/resnet/happy_pred.png) | ![Surprised](predictions/resnet/surprised_pred.png) |
+
+---
+
+#### C. Modelo 3: MobileNetV3 (Pre-entrenado - Ganador)
+*Modelo eficiente, ligero y de alto rendimiento.*
+
+| Curvas de Entrenamiento | Matrices de Confusión |
+| :---: | :---: |
+| ![Curvas MobileNet](outputs_mobilenet/curves_mobilenet_v3_small.png) | ![Matriz MobileNet](outputs_mobilenet/confusion_norm_mobilenet_v3_small.png) |
+
+**Predicciones (MobileNetV3):**
+| Angry | Happy | Surprised |
 | :---: | :---: | :---: |
 | ![Angry](predictions/mobilenet/angry_pred.png) | ![Happy](predictions/mobilenet/happy_pred.png) | ![Surprised](predictions/mobilenet/surprised_pred.png) |
 
 ---
+
 
 
 To execute the entire project automatically, simply double-click the file:

@@ -9,7 +9,6 @@ ENV/
 .vscode/
 .idea/
 datos_zip/
-outputs*/
 *.pt
 *.pth
 .DS_Store

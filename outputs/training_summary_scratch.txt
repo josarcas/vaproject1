@@ -1,0 +1,84 @@
+============================================================
+       EMOTION CLASSIFIER - TRAINING REPORT
+============================================================
+
+1. DATASET INFORMATION
+----------------------------------------
+Classes (7): alegria, disgusto, enojo, miedo, seriedad, sorpresa, tristeza
+Training Images:   12271
+Validation Images: 3068
+Batch Size:        32
+
+2. NETWORK ARCHITECTURE & EFFICIENCY
+----------------------------------------
+Total Trainable Parameters: 391,175
+
+Model Structure:
+SimpleCNN(
+  (features): Sequential(
+    (0): Conv2d(3, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (4): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (5): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): ReLU(inplace=True)
+    (7): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (8): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (9): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (10): ReLU(inplace=True)
+    (11): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (12): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (13): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (14): ReLU(inplace=True)
+    (15): AdaptiveAvgPool2d(output_size=(1, 1))
+  )
+  (classifier): Sequential(
+    (0): Flatten(start_dim=1, end_dim=-1)
+    (1): Dropout(p=0.3, inplace=False)
+    (2): Linear(in_features=256, out_features=7, bias=True)
+  )
+)
+
+3. TRAINING HISTORY
+----------------------------------------
+Epoch  | Train Loss |  Val Loss  | Train Acc  |  Val Acc   | Top-2 Acc 
+-----------------------------------------------------------------------
+  1    |   1.6041   |   1.5909   |   0.3920   |   0.3973   |   0.6095  
+  2    |   1.5770   |   1.5589   |   0.4031   |   0.4149   |   0.6199  
+  3    |   1.5608   |   1.5770   |   0.4125   |   0.4042   |   0.6206  
+  4    |   1.5443   |   1.5512   |   0.4179   |   0.4306   |   0.6219  
+  5    |   1.5338   |   1.5328   |   0.4274   |   0.4214   |   0.6281  
+  6    |   1.5226   |   1.5209   |   0.4306   |   0.4319   |   0.6268  
+  7    |   1.5023   |   1.5096   |   0.4377   |   0.4322   |   0.6385  
+  8    |   1.4894   |   1.5408   |   0.4428   |   0.4100   |   0.6336  
+  9    |   1.4643   |   1.4746   |   0.4536   |   0.4641   |   0.6675  
+  10   |   1.4427   |   1.4864   |   0.4673   |   0.4332   |   0.6744  
+  11   |   1.4052   |   1.3956   |   0.4780   |   0.4782   |   0.6646  
+  12   |   1.3882   |   1.3888   |   0.4899   |   0.4909   |   0.7034  
+  13   |   1.3580   |   1.3956   |   0.5013   |   0.4964   |   0.7001  
+  14   |   1.3319   |   1.2622   |   0.5115   |   0.5378   |   0.7324  
+  15   |   1.3027   |   1.2864   |   0.5233   |   0.5306   |   0.7419  
+  16   |   1.2669   |   1.4015   |   0.5411   |   0.5046   |   0.6728  
+  17   |   1.2385   |   1.2341   |   0.5507   |   0.5424   |   0.7389  
+  18   |   1.2124   |   1.2082   |   0.5622   |   0.5691   |   0.7542  
+  19   |   1.1799   |   1.2560   |   0.5797   |   0.5434   |   0.7363  
+  20   |   1.1645   |   1.1648   |   0.5818   |   0.5860   |   0.7777  
+  21   |   1.1404   |   1.2070   |   0.5936   |   0.5593   |   0.7425  
+  22   |   1.1241   |   1.3924   |   0.5976   |   0.4938   |   0.7053  
+  23   |   1.1046   |   1.1286   |   0.6050   |   0.5935   |   0.7653  
+  24   |   1.0924   |   1.1328   |   0.6085   |   0.5922   |   0.7757  
+  25   |   1.0825   |   1.1259   |   0.6138   |   0.5981   |   0.7947  
+
+4. FINAL METRICS (Best Model Evaluation)
+----------------------------------------
+Accuracy:       0.5981
+Top-2 Accuracy: 0.7947
+F1 Score (Mac): 0.4146
+Loss:           1.1259
+
+5. CONFUSION ANALYSIS (Top 3 Errors)
+----------------------------------------
+1. True: alegria -> Pred: seriedad (236 times, 7.69% of total data)
+2. True: tristeza -> Pred: seriedad (215 times, 7.01% of total data)
+3. True: sorpresa -> Pred: seriedad (130 times, 4.24% of total data)
